@@ -14,18 +14,10 @@ const db = mysql.createConnection({
 });
 
 db.connect(err => {
-    if (err) {
-        console.error('Error al conectar a MySQL:', err.message);
-        return;
-    }
+    if (err) throw err;
+    console.log('Conectado a MySQL:');
 
-    console.log('Conectado a MySQL');
-
-    app.listen(3000, () => {
-        console.log('Servidor Express funcionando en http://localhost:3000');
-    });
 });
-
 
 app.post('/usuarios',(req, res)=>{
     const {nombre, email} = req.body;
@@ -49,5 +41,23 @@ app.put('usuarios/:id', (req, res)=>{
     const {id} = req.params;
     const {nombre, email} = req.body;
 
-    const sql ='UPDATE usuarios SET nombre = ?, email = ? WHERE id = ?'
+    const sql ='UPDATE usuarios SET nombre = ?, email = ? WHERE id = ?';
+    db.query(sql, [nombre,email,id], (err, result) => {
+        if (err) throw err;
+        res.send('Usuario actualizado')
+    });
+});
+
+app.delete('/usuarios/:id', (req,res) =>{
+    const {id} = req.params;
+
+    const sql = 'DELETE FROM usuarios WHERE id = ?';
+    db.query(sql, [id], (err, result) => {
+        if (err) throw err;
+        res.send('Usuario eliminado')
+    });
+});
+
+app.listen(3000, () =>{
+    console.log('Servidor corriendo en http://localhost:3000')
 });
