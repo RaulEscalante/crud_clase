@@ -37,7 +37,7 @@ app.get('/usuarios', (req, res)=>{
     });
 });
 
-app.put('usuarios/:id', (req, res)=>{
+app.put('/usuarios/:id', (req, res)=>{
     const {id} = req.params;
     const {nombre, email} = req.body;
 
