@@ -1,4 +1,4 @@
-const db = require('../config/database');
+const db = require('../database');
 
 // Crear usuario
 const crearUsuario = (nombre, email, callback) => {
