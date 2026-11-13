@@ -1,5 +1,7 @@
-const db = require('../database');
 
+const db = require('../config/database');
+
+// Crear proveedor
 const crearProveedor = (nombre, telefono, email, callback) => {
     const sql = 'INSERT INTO proveedores (nombre, telefono, email) VALUES (?, ?, ?)';
 
@@ -9,6 +11,13 @@ const crearProveedor = (nombre, telefono, email, callback) => {
 // Listar proveedores
 const listarProveedores = (callback) => {
     db.query('SELECT * FROM proveedores', callback);
+};
+
+// Obtener proveedor por ID
+const obtenerProveedor = (id, callback) => {
+    const sql = 'SELECT * FROM proveedores WHERE id = ?';
+
+    db.query(sql, [id], callback);
 };
 
 // Actualizar proveedor
@@ -29,6 +38,7 @@ const eliminarProveedor = (id, callback) => {
 module.exports = {
     crearProveedor,
     listarProveedores,
+    obtenerProveedor,
     actualizarProveedor,
     eliminarProveedor
 };

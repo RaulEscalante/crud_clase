@@ -1,4 +1,4 @@
-const db = require('../database');
+const db = require('../config/database');
 
 // Crear usuario
 const crearUsuario = (nombre, email, callback) => {
@@ -10,6 +10,13 @@ const crearUsuario = (nombre, email, callback) => {
 // Listar usuarios
 const listarUsuarios = (callback) => {
     db.query('SELECT * FROM usuarios', callback);
+};
+
+// Obtener usuario por ID
+const obtenerUsuario = (id, callback) => {
+    const sql = 'SELECT * FROM usuarios WHERE id = ?';
+
+    db.query(sql, [id], callback);
 };
 
 // Actualizar usuario
@@ -30,6 +37,7 @@ const eliminarUsuario = (id, callback) => {
 module.exports = {
     crearUsuario,
     listarUsuarios,
+    obtenerUsuario,
     actualizarUsuario,
     eliminarUsuario
 };
